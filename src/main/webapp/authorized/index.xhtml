@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Excel-REST-API Sample</title>
+            </f:facet>
+            <h:outputScript library="javascript" name="screen-operation.js"/>
+        </h:head>
+
+        <h:body>
+            <h:form id="form">
+                <p:layout fullPage="true">
+                    <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                        <p:graphicImage id="imgLoad" library="images" name="excel.png" width="928" height="73"/>
+                    </p:layoutUnit>
+
+                    <p:layoutUnit id="leftPanel" position="west" size="250" header="メニュー" collapsible="true">
+                        <p:menu>
+                            <p:submenu label="コマンド一覧">
+                                <p:menuitem value="ファイル一覧の取得" action="#{index.submitGetAllFileIds()}" update=":form:pList" oncomplete="showFileSelection()"/>
+                                <p:menuitem id="addRow" value="テーブルに行追加" oncomplete="showAddRowContents()"/>
+                            </p:submenu>
+                        </p:menu>
+                    </p:layoutUnit>
+
+                    <p:layoutUnit position="center" id="centerPanel">                        
+                        <p:dataTable id="pList" var="fileID" value="#{fileselection.listChildrens}" selectionMode="single" selection="#{fileselection.selectedChildrens}" rowKey="#{fileID.id}">
+                            <p:ajax event="rowSelect" listener="#{index.onFileRowSelect}" update=":form:workSheet" oncomplete="showWorkSheetSelection()" />
+                            <p:column >
+                                <f:facet name="header">
+                                    <p:outputLabel value="ファイル名"/>
+                                </f:facet>
+                                <p:outputLabel value="#{fileID.name}"/>
+                            </p:column>
+                            <p:column >
+                                <f:facet name="header">
+                                    <p:outputLabel value="ファイル ID"/>
+                                </f:facet>
+                                <p:outputLabel value="#{fileID.id}"/>
+                            </p:column>                            
+                        </p:dataTable>
+
+                        <h:panelGroup layout="block" id="workSheet">
+                            <p:dataTable id="workSheetList" var="workSheet" value="#{worksheetselection.allWorkSheets}" selectionMode="single" selection="#{worksheetselection.selectedWorkSheets}" rowKey="#{workSheet.id}">
+                                <p:ajax event="rowSelect" listener="#{index.onWorkSheetRowSelect}" update=":form:tableLists,:form:sheetValue" oncomplete="showContents()"/>
+                                <p:column >
+                                    <f:facet name="header">
+                                        <p:outputLabel value="ワークシート名"/>
+                                    </f:facet>
+                                    <p:outputLabel value="#{workSheet.name}"/>
+                                </p:column>
+                                <p:column >
+                                    <f:facet name="header">
+                                        <p:outputLabel value="ワークシート ID"/>
+                                    </f:facet>
+                                    <p:outputLabel value="#{workSheet.id}"/>
+                                </p:column>
+                            </p:dataTable>                            
+                        </h:panelGroup>
+
+                        <h:panelGroup layout="block" id="sheetValue">
+                            行数：<p:outputLabel value="#{index.selectedSheetValue.rowCount}"/>
+                            列数：<p:outputLabel value="#{index.selectedSheetValue.columnCount}"/>
+                            <h:panelGroup layout="block" id="tableLists">
+                                <p:dataTable id="tables" var="table" value="#{tableselection.allTables}" selectionMode="single" selection="#{tableselection.selectedTable}" rowKey="#{table.id}">
+                                    <p:ajax event="rowSelect"  listener="#{index.onTableRowSelect}" oncomplete="showAddRowMenu()"/>
+                                    <p:column >
+                                        <f:facet name="header">
+                                            <p:outputLabel value="テーブル名"/>
+                                        </f:facet>
+                                        <p:outputLabel value="#{table.name}"/>
+                                    </p:column>
+                                    <p:column >
+                                        <f:facet name="header">
+                                            <p:outputLabel value="テーブル ID"/>
+                                        </f:facet>
+                                        <p:outputLabel value="#{table.id}"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </h:panelGroup>
+
+                            <p:dataTable id="tableValues" var="tableValue" value="#{index.selectedSheetValue.values}" >
+                                <p:column >
+                                    <f:facet name="header">
+                                        <p:outputLabel value="名前"/>
+                                    </f:facet>
+                                    <p:outputLabel value="#{tableValue.get(0)}"/>
+                                </p:column>
+                                <p:column >
+                                    <f:facet name="header">
+                                        <p:outputLabel value="名前(カタカナ)"/>
+                                    </f:facet>
+                                    <p:outputLabel value="#{tableValue.get(1)}"/>
+                                </p:column>
+                                <p:column >
+                                    <f:facet name="header">
+                                        <p:outputLabel value="メールアドレス"/>
+                                    </f:facet>
+                                    <p:outputLabel value="#{tableValue.get(2)}"/>
+                                </p:column>
+                                <p:column >
+                                    <f:facet name="header">
+                                        <p:outputLabel value="所属（会社名、学校名等）"/>
+                                    </f:facet>
+                                    <p:outputLabel value="#{tableValue.get(3)}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </h:panelGroup>                        
+
+                        <h:panelGroup layout="block" id="addRowToTable">
+                            選択されたテーブル：<h:outputLabel value="#{index.selectedTables.id}"/>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <p:outputLabel value="*名前"/>
+                                <p:inputText id="NameOfPerson" value="#{index.nameOfPerson}"/>
+                                <p:outputLabel value="*名前(カタカナ)"/>
+                                <p:inputText id="NameOfPersonByKana" value="#{index.nameOfPersonByKana}"/>
+
+                                <p:outputLabel value="*メールアドレス"/>
+                                <p:inputText id="EMailAddress" value="#{index.EMailAddress}" />
+
+                                <p:outputLabel value="*所属（会社名、学校名等）"/>
+                                <p:inputText id="Corporation"  value="#{index.corporation}"/>
+                            </h:panelGrid>                  
+                            <p:commandButton value="追加登録" action="#{index.addUser()}" oncomplete="showWorkSheetSelection()"/>
+                        </h:panelGroup>
+                    </p:layoutUnit>
+                </p:layout>
+            </h:form>
+        </h:body>
+    </f:view>
+</html>
+
