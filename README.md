@@ -10,7 +10,11 @@ Graph API for Excel
 https://graph.microsoft.io/ja-jp/docs/api-reference/v1.0/resources/excel
 
 And I created the sample application of it  and created the demo video (by Japanese). 
-So I would like to share the information to all of you.
+So I would like to share the the code.
+
+
+[![](http://img.youtube.com/vi/rdS7VPOzU0M/0.jpg)](https://www.youtube.com/watch?v=rdS7VPOzU0M)
+
 
 Demo Video :
 https://youtu.be/rdS7VPOzU0M
@@ -49,5 +53,3 @@ I used the JSF as a front view technology. However it is not important.Any frame
 In order to implement the Excel application with this classes,
 the most important class is in the com.yoshio3.restclient.services package.
 Please refere to the above package as a start point ?
-
-[![](http://img.youtube.com/vi/rdS7VPOzU0M/0.jpg)](https://www.youtube.com/watch?v=rdS7VPOzU0M)
