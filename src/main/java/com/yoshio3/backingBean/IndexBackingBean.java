@@ -18,7 +18,7 @@ package com.yoshio3.backingBean;
 import com.yoshio3.backingBean.primefacesselectionmodel.ExcelSheetTablesSelectionModel;
 import com.yoshio3.backingBean.primefacesselectionmodel.FileSelectionModel;
 import com.yoshio3.backingBean.primefacesselectionmodel.WorkSheetSelectionModel;
-import com.yoshio3.cdiutil.LoggerQualifier;
+import com.yoshio3.backingBean.util.LoggerQualifier;
 import com.yoshio3.restclient.exceptions.RestClientIllegalStateException;
 import com.yoshio3.restclient.jaxb.entities.excel.ExcelWorkSheetValue;
 import com.yoshio3.restclient.jaxb.entities.excel.TablesValue;

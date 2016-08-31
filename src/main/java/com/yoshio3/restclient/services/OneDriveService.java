@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import javax.ws.rs.core.Response;
-import com.yoshio3.cdiutil.LoggerQualifier;
+import com.yoshio3.backingBean.util.LoggerQualifier;
 import com.yoshio3.restclient.exceptions.RestClientIllegalStateException;
 import java.util.stream.Collectors;
 

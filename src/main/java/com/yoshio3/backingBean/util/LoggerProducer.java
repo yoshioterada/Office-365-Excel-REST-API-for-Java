@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
  */
-package com.yoshio3.cdiutil;
+package com.yoshio3.backingBean.util;
 
 import java.io.Serializable;
 import java.util.logging.Logger;

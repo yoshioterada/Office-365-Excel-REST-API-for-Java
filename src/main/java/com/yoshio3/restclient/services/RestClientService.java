@@ -29,7 +29,7 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 import org.glassfish.jersey.jackson.JacksonFeature;
-import com.yoshio3.cdiutil.LoggerQualifier;
+import com.yoshio3.backingBean.util.LoggerQualifier;
 import com.yoshio3.restclient.exceptions.RestClientIllegalStateException;
 import com.yoshio3.restclient.jaxb.entities.error.DetailErrorCode;
 import com.yoshio3.restclient.jaxb.entities.error.RestClientErrorHandler;

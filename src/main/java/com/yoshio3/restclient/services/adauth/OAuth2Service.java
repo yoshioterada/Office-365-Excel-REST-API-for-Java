@@ -17,7 +17,7 @@ package com.yoshio3.restclient.services.adauth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
-import com.yoshio3.cdiutil.LoggerQualifier;
+import com.yoshio3.backingBean.util.LoggerQualifier;
 import com.yoshio3.restclient.exceptions.RestClientIllegalStateException;
 import com.yoshio3.restclient.jaxb.entities.auth.AccessToken;
 import com.yoshio3.restclient.jaxb.entities.error.DetailErrorCode;
