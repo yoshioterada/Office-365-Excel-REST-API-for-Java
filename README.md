@@ -43,16 +43,13 @@ The Above Demo Senario:
 
 11.Add new file to Ondrive and check again from the application
 
-In my sample, I wrote as a Java EE 7 application.
-However it may be run on servlet container like Tomcat/Jetty.
+In my sample, I wrote as a Java EE 7 application.</br>
+So it will run on Java EE compatible Application Servers like </br>
+GlassFish(Payara), WildFly(JBoss EAP), WebLogic, WebSphere and so on. 
 
-I used following technologies.
-
-I used the JSF as a front view technology. However it is not important.Any framework for Front technologies will be available.
-
-In order to implement the Excel application with this classes,
-the most important class is in the com.yoshio3.restclient.services package.
-Please refere to the above package as a start point ?
+It also run on servlet container like Tomcat.</br>
+If you would like to run it on Tomcat,</br>
+Please refer to the [README-4-Tomcat.md](https://github.com/yoshioterada/Office-365-Excel-REST-API-for-Java/blob/master/README-4-Tomcat.md "README-4-Tomcat.md") ?
 
 # Configuration Step
 ![](https://c1.staticflickr.com/9/8449/29321901506_0d5d02f69e.jpg)
