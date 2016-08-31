@@ -1,6 +1,6 @@
 # For Tomcat User
 
-If you would like to this sample application on Tomcat, 
+If you would like to run the application on Tomcat,</br> 
 please modify pom.xml file and create 2 file for CDI configuration ?
 
 ## 1. Please add following dependencies in pom.xml.
