@@ -85,9 +85,9 @@ public class IndexBackingBean implements Serializable {
             //OneDrive にあるディレクトリ・ファイル一覧の取得
             Optional<List<OneDriveChildrenValue>> filesOnOneDrive
                     = oneDriveService.getFilesOnOneDrive();
-            if (filesOnOneDrive.isPresent()) {
-                fileSelection.setListChildrens(filesOnOneDrive.get());
-            }
+            filesOnOneDrive.ifPresent(oneDrivelist -> {
+                fileSelection.setListChildrens(oneDrivelist);
+            });
         } catch (RestClientIllegalStateException rcise) {
             logger.log(Level.SEVERE, null, rcise);
             FacesContext.getCurrentInstance().addMessage("client-id", new FacesMessage(rcise.getMessage()));
@@ -101,9 +101,9 @@ public class IndexBackingBean implements Serializable {
         try {
             Optional<List<ExcelWorkSheetValue>> excelWorkSheetInFile
                     = excelService.getExcelWorkSheetInFile(fileID);
-            if (excelWorkSheetInFile.isPresent()) {
-                workSheetSelection.setAllWorkSheets(excelWorkSheetInFile.get());
-            }
+            excelWorkSheetInFile.ifPresent(excelList -> {
+                workSheetSelection.setAllWorkSheets(excelList);
+            });
         } catch (RestClientIllegalStateException ex) {
             logger.log(Level.SEVERE, null, ex);
             FacesContext.getCurrentInstance().addMessage("client-id", new FacesMessage(ex.getMessage()));
@@ -123,9 +123,9 @@ public class IndexBackingBean implements Serializable {
         try {
             Optional<List<TablesValue>> allTableInWorkSheet
                     = excelService.getAllTableInWorkSheet(fileID, workSheetID);
-            if (allTableInWorkSheet.isPresent()) {
-                tableSelection.setAllTables(allTableInWorkSheet.get());
-            }
+            allTableInWorkSheet.ifPresent(tableList -> { 
+                tableSelection.setAllTables(tableList);
+            });
         } catch (RestClientIllegalStateException ex) {
             logger.log(Level.SEVERE, null, ex);
             FacesContext.getCurrentInstance().addMessage("client-id", new FacesMessage(ex.getMessage()));
@@ -136,10 +136,9 @@ public class IndexBackingBean implements Serializable {
         try {
             Optional<UsedRangeOfWorkSheet> rangeOfWorkSheet
                     = excelService.getRangeOfWorkSheet(fileID, workSheetID);
-
-            if (rangeOfWorkSheet.isPresent()) {
-                this.setSelectedSheetValue(rangeOfWorkSheet.get());
-            }
+            rangeOfWorkSheet.ifPresent(rangeList -> {
+                this.setSelectedSheetValue(rangeList);
+            });
         } catch (RestClientIllegalStateException ex) {
             logger.log(Level.SEVERE, null, ex);
             FacesContext.getCurrentInstance().addMessage("client-id", new FacesMessage(ex.getMessage()));
